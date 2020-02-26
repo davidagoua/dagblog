@@ -5,7 +5,10 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', os.environ.get('SETTING_FILE', 'dagblog.settings'))
+    if os.environ.get('ENV') == 'PRODUCTION':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dagblog.settings_set.prod')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dagblog.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
